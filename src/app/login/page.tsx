@@ -72,12 +72,12 @@ export default function LoginPage() {
                         type="submit"
                         className="rounded-md bg-black px-4 py-2 text-white text-sm hover:bg-gray-800"
                     >
-                        Sign in
+                        Log In
                     </button>
                     <p className="text-center text-sm text-gray-600">
                         {"Don't have an account? "}
                         <a href="/register" className="font-semibold text-gray-800">
-                            Sign up
+                            Sign Up
                         </a>
                     </p>
                 </form>

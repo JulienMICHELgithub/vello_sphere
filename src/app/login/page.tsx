@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/app/lib/supabaseClient'
+import { getSupabaseClient } from '@/app/lib/supabaseClient'
 
 export default function LoginPage() {
     const router = useRouter()
@@ -12,6 +12,8 @@ export default function LoginPage() {
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
+
+        const supabase = getSupabaseClient()
 
         const { error } = await supabase.auth.signInWithPassword({
             email,

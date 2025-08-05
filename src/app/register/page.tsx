@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { getSupabaseClient } from '@/app/lib/supabaseClient'
+//just add variable to vercel need tu test deployment
 
 export default function SignUpPage() {
     const router = useRouter()

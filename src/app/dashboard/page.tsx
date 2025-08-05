@@ -16,6 +16,7 @@ export default function MesBikes() {
     useEffect(() => {
         const fetchBikes = async () => {
             const supabase = getSupabaseClient()
+
             const sessionRes = await supabase.auth.getSession()
             const user = sessionRes.data.session?.user
 

@@ -36,7 +36,7 @@ export default function SignUpPage() {
             // Si session disponible => redirige vers page protégée
             const sessionCheck = await supabase.auth.getSession()
             if (sessionCheck.data.session) {
-                router.push('/protected')
+                router.push('/dashboard')
             } else {
                 router.push('/login')
             }

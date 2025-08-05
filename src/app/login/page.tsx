@@ -22,7 +22,7 @@ export default function LoginPage() {
             setError(error.message)
         } else {
             // Redirige vers une page protégée
-            router.push('/protected')
+            router.push('/dashboard')
         }
     }
 

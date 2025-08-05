@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { supabase } from '@/app/lib/supabaseClient'
+import { getSupabaseClient } from '@/app/lib/supabaseClient'
 
 type Bike = {
     id: number
@@ -15,6 +15,7 @@ export default function MesBikes() {
 
     useEffect(() => {
         const fetchBikes = async () => {
+            const supabase = getSupabaseClient()
             const sessionRes = await supabase.auth.getSession()
             const user = sessionRes.data.session?.user
 

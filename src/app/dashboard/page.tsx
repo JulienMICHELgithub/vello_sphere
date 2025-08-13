@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { getSupabaseClient } from '@/app/lib/supabaseClient'
+import { CarouselComponent } from './carousel'
 
 type Bike = {
     id: number
@@ -9,7 +10,7 @@ type Bike = {
     created_at: string
 }
 
-export default function MesBikes() {
+export default function MyBikes() {
     const [bikes, setBikes] = useState<Bike[]>([])
     const [loading, setLoading] = useState(true)
 
@@ -46,7 +47,10 @@ export default function MesBikes() {
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-semibold mb-4">Mes vélos</h1>
+
+            <CarouselComponent />
+
+            <h1 className="text-2xl text-white font-semibold mb-4">Mes vélos</h1>
             {bikes.length === 0 ? (
                 <p>Vous n’avez pas encore de vélo.</p>
             ) : (

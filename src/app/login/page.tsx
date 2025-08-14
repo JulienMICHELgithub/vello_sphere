@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { getSupabaseClient } from '@/app/lib/supabaseClient'
+import { supabase } from '@/app/lib/supabaseClient'
 
 export default function LoginPage() {
     const router = useRouter()
@@ -13,8 +13,6 @@ export default function LoginPage() {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
 
-        const supabase = getSupabaseClient()
-
         const { error } = await supabase.auth.signInWithPassword({
             email,
             password,
@@ -23,7 +21,6 @@ export default function LoginPage() {
         if (error) {
             setError(error.message)
         } else {
-            // Redirige vers une page protégée
             router.push('/dashboard')
         }
     }

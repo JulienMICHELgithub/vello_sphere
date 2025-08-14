@@ -2,8 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { getSupabaseClient } from '@/app/lib/supabaseClient'
-//just add variable to vercel need tu test deployment
+import { supabase } from '@/app/lib/supabaseClient'
 
 export default function SignUpPage() {
     const router = useRouter()
@@ -16,8 +15,6 @@ export default function SignUpPage() {
     const handleSignUp = async (e: React.FormEvent) => {
         e.preventDefault()
         setError(null)
-
-        const supabase = getSupabaseClient()
 
         if (password !== confirmPassword) {
             setError('Les mots de passe ne correspondent pas.')
@@ -36,7 +33,6 @@ export default function SignUpPage() {
                 setError(error.message)
             }
         } else {
-            // Si session disponible => redirige vers page protégée
             const sessionCheck = await supabase.auth.getSession()
             if (sessionCheck.data.session) {
                 router.push('/dashboard')

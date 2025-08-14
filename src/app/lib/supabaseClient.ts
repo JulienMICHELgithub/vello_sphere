@@ -1,12 +1,22 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
-export function getSupabaseClient() {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-    if (!supabaseUrl || !supabaseAnonKey) {
-        throw new Error("Missing Supabase environment variables")
-    }
+declare global {
+    var __supabase__: SupabaseClient | undefined
+}
 
-    return createClient(supabaseUrl, supabaseAnonKey)
+export const supabase: SupabaseClient =
+    globalThis.__supabase__ ??
+    createClient(supabaseUrl, supabaseAnonKey, {
+        auth: {
+            persistSession: true,
+            autoRefreshToken: true,
+            storageKey: 'sb-myapp-auth',
+        },
+    })
+
+if (process.env.NODE_ENV !== 'production') {
+    globalThis.__supabase__ = supabase
 }

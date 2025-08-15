@@ -2,27 +2,30 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/app/lib/supabaseClient'
+import { signInWithEmail } from '@/app/services/auth'
+import { useRedirectIfAuthed } from '@/app/hooks/useAuthRedirect'
 
 export default function LoginPage() {
+    useRedirectIfAuthed('/dashboard')
+
     const router = useRouter()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState<string | null>(null)
+    const [submitting, setSubmitting] = useState(false)
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
+        setSubmitting(true)
+        setError(null)
 
-        const { error } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-        })
-
+        const { error } = await signInWithEmail(email, password)
         if (error) {
             setError(error.message)
-        } else {
-            router.push('/dashboard')
+            setSubmitting(false)
+            return
         }
+        router.push('/dashboard')
     }
 
     return (
@@ -34,6 +37,7 @@ export default function LoginPage() {
                         Use your email and password to log in
                     </p>
                 </div>
+
                 <form onSubmit={handleLogin} className="flex flex-col space-y-4 bg-white px-4 py-8 sm:px-16">
                     <div className="flex flex-col gap-4">
                         <div className="flex flex-col">
@@ -43,6 +47,7 @@ export default function LoginPage() {
                             <input
                                 id="email"
                                 type="email"
+                                autoComplete="email"
                                 placeholder="Your Email"
                                 value={email}
                                 onChange={e => setEmail(e.target.value)}
@@ -58,6 +63,7 @@ export default function LoginPage() {
                             <input
                                 id="password"
                                 type="password"
+                                autoComplete="current-password"
                                 placeholder="Your Password"
                                 value={password}
                                 onChange={e => setPassword(e.target.value)}
@@ -66,13 +72,17 @@ export default function LoginPage() {
                             />
                         </div>
                     </div>
+
                     {error && <p className="text-red-500 text-sm">{error}</p>}
+
                     <button
                         type="submit"
-                        className="rounded-md bg-black px-4 py-2 text-white text-sm hover:bg-gray-800"
+                        disabled={submitting}
+                        className="rounded-md bg-black px-4 py-2 text-white text-sm hover:bg-gray-800 disabled:opacity-60"
                     >
-                        Log In
+                        {submitting ? 'Connexion…' : 'Log In'}
                     </button>
+
                     <p className="text-center text-sm text-gray-600">
                         {"Don't have an account? "}
                         <a href="/register" className="font-semibold text-gray-800">

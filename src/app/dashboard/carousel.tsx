@@ -1,23 +1,18 @@
 'use client'
 
 import * as React from 'react'
-import { useUserBikes } from '@/app/hooks/useUserBikes'
-
+import type { Bike } from '@/app/services/bike'
 import { Card, CardContent } from '@/components/ui/card'
 import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
+    Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,
 } from '@/components/ui/carousel'
 
-export function CarouselComponent() {
-    const { data: bikes, isLoading, error } = useUserBikes()
+type Props = { bikes: Bike[] }
 
-    if (isLoading) return <div className="px-12 py-8 text-sm text-gray-500">Chargement…</div>
-    if (error)     return <div className="px-12 py-8 text-sm text-red-600">{error}</div>
-    if (!bikes.length) return <div className="px-12 py-8 text-sm text-gray-500">Aucun vélo pour le moment.</div>
+export function CarouselComponent({ bikes }: Props) {
+    if (!bikes.length) {
+        return <div className="px-12 py-8 text-sm text-gray-500">Aucun vélo pour le moment.</div>
+    }
 
     return (
         <Carousel opts={{ align: 'start', loop: true }} className="w-full px-12">
@@ -37,8 +32,8 @@ export function CarouselComponent() {
                     </CarouselItem>
                 ))}
             </CarouselContent>
-            <CarouselPrevious className="left-2 top-1/2 -translate-y-1/2" />
-            <CarouselNext className="right-2 top-1/2 -translate-y-1/2" />
+            <CarouselPrevious aria-label="Précédent" className="left-2 top-1/2 -translate-y-1/2" />
+            <CarouselNext aria-label="Suivant" className="right-2 top-1/2 -translate-y-1/2" />
         </Carousel>
     )
 }

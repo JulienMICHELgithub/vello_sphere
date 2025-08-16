@@ -1,5 +1,6 @@
 'use client'
 
+import { NavigationBar } from './navbar'
 import { CarouselComponent } from './carousel'
 
 type Bike = {
@@ -13,7 +14,7 @@ export default function MyBikes() {
 
     return (
         <div className="p-4">
-
+            <NavigationBar/>
             <CarouselComponent />
 
         </div>

@@ -22,7 +22,7 @@ export default function Home() {
           <Link
             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-white text-dark gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
             href="/login"
-          >
+            legacyBehavior>
             <Image
               className="invert"
               src="/vercel.svg"
@@ -34,8 +34,7 @@ export default function Home() {
           </Link>
           <Link
             className="rounded-full border border-solid border-black/[.08] bg-black text-white transition-colors flex gap-2 items-center justify-center hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="/register"
-          >
+            href="/register">
             <Image
               className="whitespace-normal"
               src="/vercel.svg"

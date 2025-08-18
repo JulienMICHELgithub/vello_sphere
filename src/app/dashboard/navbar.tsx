@@ -31,13 +31,6 @@ export function NavigationBar() {
         <nav className="p-2">
             <NavigationMenu>
                 <NavigationMenuList>
-                    //grong
-                    <NavigationMenuItem>
-                        <Link href="/dashboard" passHref>
-                            <NavigationMenuLink className={linkBase}>Dashboard</NavigationMenuLink>
-                        </Link>
-                    </NavigationMenuItem>
-                    //good
                     <NavigationMenuItem>
                         <NavigationMenuLink asChild>
                             <Link href="/dashboard" className={linkBase}>
@@ -84,9 +77,11 @@ export function NavigationBar() {
                     </NavigationMenuItem>
 
                     <NavigationMenuItem>
-                        <Link href="/docs" passHref>
-                            <NavigationMenuLink className={linkBase}>Docs</NavigationMenuLink>
-                        </Link>
+                        <NavigationMenuLink asChild>
+                            <Link href="/docs" className={linkBase}>
+                                Docs
+                            </Link>
+                        </NavigationMenuLink>
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>

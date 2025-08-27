@@ -11,7 +11,7 @@ import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 import { useCreateBike } from '@/app/hooks/useCreateBike'
-import { listBikeTypes, type BikeType } from '@/app/services/bike'
+import { listBikesTypes, type BikeType } from '@/app/services/bike'
 
 type Props = { onCreated?: () => Promise<void> | void }
 
@@ -24,7 +24,7 @@ export default function AddBikeButton({ onCreated }: Props) {
 
     useEffect(() => {
         let mounted = true
-        listBikeTypes().then((t) => { if (mounted) setTypes(t) }).catch(() => {})
+        listBikesTypes().then((t) => { if (mounted) setTypes(t) }).catch(() => {})
         return () => { mounted = false }
     }, [])
 
@@ -42,20 +42,22 @@ export default function AddBikeButton({ onCreated }: Props) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="ghost">Ajouter un vélo</Button>
+                <Button className="bg-black border-black/[0.8] text-white hover:bg-[#1a1a1a] transition-colors">
+                    Add a bike
+                </Button>
             </DialogTrigger>
 
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
-                    <DialogTitle>Ajouter un vélo</DialogTitle>
+                    <DialogTitle>Add a new bike</DialogTitle>
                 </DialogHeader>
 
                 <div className="space-y-4">
                     <div className="grid gap-2">
-                        <Label htmlFor="bike-name">Nom</Label>
+                        <Label htmlFor="bike-name">Name</Label>
                         <Input
                             id="bike-name"
-                            placeholder="Mon gravel"
+                            placeholder="Bike name"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
